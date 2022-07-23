@@ -3,6 +3,7 @@
 {% block badge %}badge{% endblock badge %}
 {% block cart_detail %}{{order.get_cart_items}}{% endblock cart_detail %}
 {% block upper_content %}{% endblock upper_content %}
+{% block cookie_check %} {% endblock cookie_check %}
 {% block content %}
 
 {% if order.get_cart_items == 0 %}
