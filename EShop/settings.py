@@ -85,10 +85,10 @@ AUTH_USER_MODEL = 'users.ThisUser'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'eshop_db',
-        'USER': 'postgres',
-        'PASSWORD': 'admin123',
-        'HOST': 'localhost',
+        'NAME': 'der6a0dudfon0o',
+        'USER': 'vspbblotxlpjsd',
+        'PASSWORD': '7d19c17de9d3a953e9229a70b1eabcd1cea98e1c2f9dcf27e59773554b5ce685',
+        'HOST': 'ec2-34-247-72-29.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 }
