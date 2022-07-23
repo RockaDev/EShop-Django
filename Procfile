@@ -1,2 +1,3 @@
-release: python manage.py migrate
-web: gunicorn EShop.wsgi:application --log-file - --log-level debug
+web: gunicorn EShop.wsgi --log-file=-
+python manage.py collectstatic --noinput
+manage.py migrate
