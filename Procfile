@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn CCMS.wsgi --log-file -
+web: gunicorn EShop.wsgi:application --log-file - --log-level debug
