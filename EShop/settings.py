@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4*u@#b&mv8qz6p!8w@*4lm+q^r32%+l$+%ot$8(^o=*5*@s2@m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','liquideshop.herokuapp.com']
 
