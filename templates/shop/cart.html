@@ -1,0 +1,64 @@
+{% extends 'base/home.html' %}
+{% load static %}
+{% block badge %}badge{% endblock badge %}
+{% block cart_detail %}{{order.get_cart_items}}{% endblock cart_detail %}
+{% block upper_content %}{% endblock upper_content %}
+{% block content %}
+
+{% if order.get_cart_items == 0 %}
+
+    <h2>Košík je prázdny</h2>
+
+{% else %}
+
+
+    {% if order != None %}
+
+        <h2>Produkty:</h2>
+
+        {% for item in order.orderitem_set.all %}
+        <form method="POST">
+            {% csrf_token %}
+            <p>{{item.product.product_item}} {{item.product.price|floatformat:2}}€</p>
+            <p class="quantity">{{item.product.product_item}} kusov: {{item.quantity}} Cena: {{item.get_total|floatformat:2}}€</p>
+                {% if item.product.image %}
+                    <p><img src="{{item.product.image.url}}" width="200px" height="200px"></p>
+                {% endif %}
+
+            <label for="">Upraviť košík</label><input type="number" placeholder="0" name="edit-quantity-{{item.product.id}}" value="{{ item.quantity }}" min="1" max="{{item.product.on_stock}}" id="edit-quantity-{{item.product.id}}">
+            <input type="submit" class="btn btn-primary" name="apply-add-{{item.product.id}}" value="Upraviť">
+            <br>
+            <input type="submit" class="btn btn-danger" name="remove-{{item.product.id}}" value="Vymazať z košíku">
+        </form>
+        {% endfor %}
+
+        <p>---------------------------------------------</p>
+        <p>Spolu {{order.get_cart_items}} 
+            {% if order.get_cart_items == 1 %}
+                Produkt.
+            {% elif order.get_cart_items > 1 %}
+                Produkty.
+            {% else %}
+                Produktov.
+            {% endif %}
+        
+        </p>
+        <p>Celá suma: {{order.get_cart_total|floatformat:2}}€</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <a href="/shop/cart/checkout/" class="btn btn-warning" name="payment">Objednať</a>
+        </form>
+
+        <p>---------------------------------------------</p>
+
+
+
+    {% endif %}
+
+
+{% endif %}
+
+
+
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends 'base/home.html' %}
+{% load static %}
+{% block upper_content %}{% endblock upper_content %}
+
+{% block content %}
+
+{% if order.get_cart_items == 0 %}
+
+    <h2>Váš košík je prázdny.</h2>
+
+{% else %}
+    <form method="post">
+        {% csrf_token %}
+        <p>{{form}}</p>
+        <input type="submit" name="payment" class="btn btn-warning" value="Zaplatiť">
+        {{ form.errors }}
+    </form>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin{% endblock title %}</title>
+</head>
+<body>
+    <div class="LoginContainer" ALIGN="center">
+        <form method="post">
+            {% csrf_token %}
+            <div class="login-form" ALIGN="center">
+                {% for field in adminForm.visible_fields %}
+                <div class="col-sm-6" style="color: white;">
+                  <b>{{ field.label_tag }}</b> - {{ field }} 
+                </div>
+              {% endfor %}
+              <input type="submit" value="Login" class="btn btn-primary">
+      
+        </div>
+</body>
+</html>

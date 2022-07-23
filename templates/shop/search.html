@@ -1,0 +1,51 @@
+{% extends 'base/home.html' %}
+{% load static %}
+{% block badge %}badge{% endblock badge %}
+{% block cart_detail %}{{order.get_cart_items}}{% endblock cart_detail %}
+{% block upper_content %}{% endblock upper_content %}
+{% block title %}Search {{request.GET.q}}{% endblock title %}
+
+
+{% block content %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Mingzat&display=swap');
+</style>
+
+<link rel="stylesheet" href="{% static 'shop/css/buttons.css' %}">
+<link rel="stylesheet" href="{% static 'shop/css/shop_style.css' %}">
+
+{% endblock content %}
+
+{% block product_content %}
+
+<br>
+    {% for product in results %}
+
+    <div class="products" ALIGN="center">
+        {% if product.image %}
+        <div class="image-container">
+            <a href="{% url 'productdetail' product.id %}" id="shopImage"><img src="{{product.image.url}}" href="{% url 'productdetail' product.id %}" width="400px" height="400px"></a>
+
+        </div>
+            {% endif %}
+        <a href="{% url 'productdetail' product.id %}" id="product_name">{{product.product_item}}</a>
+        <p style="font-family: 'Mingzat', sans-serif;">{{product.price}}€</p>
+        <form method="post">
+            {% csrf_token %}
+            <input type="number" name="quantity" id="product_quantity" placeholder="1" value="1" min="1" max="{{product.on_stock}}">
+            <br>
+            <input type="submit" name="add-to-cart-{{product.id}}" id="add-to-cart-{{product.id}}" class="btn-yellow" value="Pridať do košíka">
+        </form>
+    </div>
+
+    {% empty %}
+
+        <h2 ALIGN="center">Produkt sa nenašiel</h2>
+        <h3 ALIGN="center">:(</h3>
+
+    {% endfor %}
+
+
+{% endblock product_content %}

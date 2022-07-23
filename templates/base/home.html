@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="{% static 'shop/shop-cookies.js' %}"></script>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Home{% endblock title %}</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+        crossorigin="anonymous"
+    />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</head>
+<body>
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
+
+    @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Mingzat&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+
+    @media only screen and (max-width: 991.5px) {
+      body {
+        background-color: white !important;
+
+      }
+}
+</style>
+
+{% block cookie_check %}
+  <script>
+  if(document.cookie.indexOf('device=') !== 0) {
+    window.location = '/loading/'
+  }
+    </script>
+{% endblock cookie_check %}
+
+    <link rel="stylesheet" href="{% static 'shop/css/scrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/cart.css' %}">
+    <style> body {background-color: white;color: black;}</style>
+    {% block navbar %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-image: linear-gradient(to right, #010d1d, #00131b, #041616, #111815, #181917);color:white;text-decoration: none;padding-left: 50px;padding-right: 50px;">
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          
+          <ul class="navbar-nav mr-auto" style="margin: 15px;">
+            <li class="nav-item active" style="margin-right: 20px;">
+              <a class="nav-link" href="{% url 'home' %}" style="color: white;white-space:nowrap;font-family: 'Mochiy Pop One', sans-serif;">Liquid E-Shop</a>
+            </li>
+
+            <li class="nav-item active">
+              <a class="nav-link" href="/" style="color:white;text-decoration: none;">DOMOV</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'shop' %}" style="color:white;text-decoration: none;">OBCHOD</a>
+            </li>
+            <li class="nav-item">
+              <div class="cart">
+                <a class="nav-link" href="/shop/cart/">
+                  <i class="fa {% block badge %}badge{% endblock badge %} fa-lg" style="color: white;font-size: 18px;width: 40px;justify-content: center;justify-items: center;" value="{% block cart_detail %}{{order.get_cart_items}}{% endblock cart_detail %}">&#xf290;</i>
+                </a>
+              </div>
+            </li>
+            <div class="collapse navbar-collapse" id="mynavbar" style="margin-left:15px;">
+              <form class="d-flex">
+                <input name="q" type="text" class="form-control mr-sm-2" style="width:200px;" required placeholder="Vyhľadať produkt">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="button-addon2">Hľadať</button>
+              </form>
+
+            
+          </ul>
+        </div>
+
+        <div class="input-group mb-3">
+              <button class="navbar-toggler" style="color: white;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+              </button>
+        </div>
+
+              {% if user.is_superuser %}
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+
+                    <span class="navbar-text" style="margin-right: 20px;"><a href="/orders/" target="_blank" style="text-decoration:none;color: white;">OBJEDNÁVKY </a></span>
+                    <span class="navbar-text" style="margin-right: 20px;"><a href="/admin/" target="_blank" style="text-decoration:none;color: white;white-space:nowrap;">ADMIN PANEL </a></span>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}" style="color:white;text-decoration: none;margin-right: 20px;white-space:nowrap;">Odhlásiť sa</a>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+      </nav>
+<style>
+
+.navbar .navbar-collapse {
+    text-align: center;
+}
+
+</style>
+    {% endblock navbar %}
+
+    {% block content %}{% endblock content %}
+    {% block upper_content %}
+
+    {% if user.is_superuser %}
+      <h3 style="font-family: 'Anton', sans-serif;color: red;" ALIGN="center">Prihlásený ako Admin! Vitaj späť.</h3>
+    {% endif %}
+        
+    <div class="upper-container" ALIGN="center" style="width:100%;background-color: white;">
+        <div class="upper-content-container">
+            <h2 style="font-family: 'Anton', sans-serif;">Novinky</h2>
+            <br>
+            {% for product in random_shopitem %}
+                    {% if product.image %}
+                        <div class="image-container" style="display: inline;">
+                            <a href="{% url 'productdetail' product.id %}" id="shopImageUpper"><img src="{{product.image.url}}" width="400px" height="400px"></a>
+                        </div>
+                    {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <div class="shopnow" ALIGN="center" style="margin:80px;">
+    
+    <a href="/shop/" style="font-family: 'Anton', sans-serif;font-size: 30px;text-decoration: none;outline: none;color: white;border:3px solid black;padding: 5px;border-radius: 3px;background-color: black;">Nakupovať</a></div>
+    
+    {% endblock upper_content %}
+    {% block product_content %}{% endblock product_content %}
+
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>

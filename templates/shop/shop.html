@@ -1,0 +1,62 @@
+{% extends 'base/home.html' %}
+{% load static %}
+{% block badge %}badge{% endblock badge %}
+{% block cart_detail %}{{order.get_cart_items}}{% endblock cart_detail %}
+{% block upper_content %}{% endblock upper_content %}
+{% block title %}Shop{% endblock title %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'shop/css/buttons.css' %}">
+<link rel="stylesheet" href="{% static 'shop/css/shop_style.css' %}">
+
+<div class="pagination">
+    {% for i in paginator.page_range %}
+        <a class="page-link" href="?page={{i}}">{{i}}</a>
+    {% endfor %}
+</div>
+
+
+    {% if user.is_superuser %}
+        <input type="submit" class="btn btn-success" name="add_product" id="add_product" value="Nový Produkt">
+
+        <div class="new-products" id="product-form" style="display: none;width: 300px;padding: 50px;">
+            <form method="post" enctype='multipart/form-data'>
+                {{admin_product_add}}
+                    {% csrf_token %}
+                    <input type="submit" name="admin-add-product" id="admin-add-product" class="btn btn-success" value="Pridať nový produkt">
+                </form>
+                <input type="submit" name="close-product" id="close-product" class="btn btn-danger" value="Zatvoriť">
+        </div>
+        <script src="{% static 'shop/admin-shop.js' %}"></script>
+    {% endif %}
+
+    <br>
+
+    {% endblock content %}
+
+
+    {% block product_content %}
+    <br>
+    <h2 style="font-family: 'Anton', sans-serif;" ALIGN="center">Naše produkty</h2>
+        {% for product in products %}
+        <div class="products" ALIGN="center">
+            {% if product.image %}
+            <div class="image-container">
+                <a href="{% url 'productdetail' product.id %}" id="shopImage"><img src="{{product.image.url}}" width="400px" height="400px"></a>
+
+            </div>
+                {% endif %}
+            <a href="{% url 'productdetail' product.id %}" id="product_name">{{product.product_item}}</a>
+            <p style="font-family: 'Mingzat', sans-serif;">{{product.price}}€</p>
+            <form method="post">
+                {% csrf_token %}
+                <input type="number" name="quantity" id="product_quantity" placeholder="1" value="1" min="1" max="{{product.on_stock}}">
+                <br>
+                <input type="submit" name="add-to-cart-{{product.id}}" id="add-to-cart-{{product.id}}" class="btn-yellow" value="Pridať do košíka">
+                
+            </form>
+        </div>
+        {% endfor %}
+
+
+    {% endblock product_content %}

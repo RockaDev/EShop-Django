@@ -1,0 +1,53 @@
+
+<input type="submit" value="Back" onclick="window.location = '/orders/';">
+<h1>Adresa:</h1>
+{% for address in shipping %}
+
+<p>Krajina: {{address.country}}</p>
+<p>Meno a priezvisko: {{address.name}} {{address.surname}}</p>
+<p>Email: {{address.email}}</p>
+<p>tel.číslo: {{address.tel_number}}
+<p>Adresa: {{address.address}}</p>
+<p>PSČ: {{address.post_num}}</p>
+
+    {% if address.dic %}
+        <p>DIC: {{address.dic}}</p>
+    {% endif %}
+
+<p>Dátum objednania: {{address.date_of_order}}</p>
+
+
+<div class="markchecked" style="width: 150px;">
+    <form action="" method="post">
+        {% csrf_token %}{% if address.mark_as_completed == True %}
+        <p>Označiť ako vybavené <input type="checkbox" checked name="mark_as_completed" /></p>
+        {% else %}
+        <p>Označiť ako vybavené <input type="checkbox" name="mark_as_completed" /></p>
+        {% endif %}
+        <input type="submit" name="save_checkbox_db" value="Uložiť">
+    </form>
+</div>
+
+<form method="post" onsubmit="return confirm('Naozaj chcete zmazať objednávku?');">
+    {% csrf_token %}
+    <input type="submit" name="delete_order" value="Vymazať objednávku">
+
+</form>
+
+
+{% endfor %}
+
+
+<h4>Zaplatená suma: {{order_model.get_cart_total|floatformat:2}}€</h4>
+
+<h2>Objednávka {% for ord in order|slice:"0:1" %}{{ord.transaction_id}}{% endfor %}:</h2>
+{% for ord in order %}
+
+<div class="objednavky" style="border:2px solid black;width:600px;padding:10px;">
+    <p>Produkt: {{ord.product}} | počet: {{ord.quantity}} | ID:{{ord.order}}</p>
+        {% if ord.product.image %}
+        <img src="{{ord.product.image.url}}" width="100px" height="100px">
+        {% endif %}
+</div>
+
+{% endfor %}

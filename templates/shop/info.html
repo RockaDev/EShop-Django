@@ -1,0 +1,23 @@
+{% extends 'shop/shop.html' %}
+{% load static %}
+{% block badge %}badge{% endblock badge %}
+{% block cart_detail %}{{order.get_cart_items}}{% endblock cart_detail %}
+{% block content %}{% endblock %}
+{% block upper_content %}{% endblock upper_content %}
+{% block product_content %}
+<link rel="stylesheet" href="{% static 'shop/css/buttons.css' %}">
+<h2 style="font-family: 'Anton', sans-serif;">{{product.product_item}}</h2>
+<p style="font-family: 'Mingzat', sans-serif;font-size: 25px;">{{product.price}}€</p>
+<p>{{product.about_item}}</p>
+{% if product.image %}
+<img src="{{product.image.url}}" width="200px" height="200px">
+{% endif %}
+<p>Na sklade: {{product.on_stock}}</p>
+<form method="post">
+    {% csrf_token %}
+    <input type="number" name="quantity" id="product_quantity" placeholder="1" value="1" min="1" max="{{product.on_stock}}" style="margin-left: 50px;">
+    <input type="submit" name="add-to-cart-{{product.id}}" id="add-to-cart-{{product.id}}" class="btn-yellow" value="Pridať do košíka">
+    {% if user.is_superuser %}<input type="submit" name="del-{{product.id}}" id="del-{{product.id}}" class="btn btn-secondary" value="Vymazať {{product.product_item}}">{% endif %}
+</form>
+
+{% endblock %}
