@@ -34,13 +34,9 @@
       }
 }
 </style>
-
+<p>test</p>
 {% block cookie_check %}
-  <script>
-  if(document.cookie.indexOf('device=') !== 0) {
-    window.location = '/loading/'
-  }
-    </script>
+
 {% endblock cookie_check %}
 
     <link rel="stylesheet" href="{% static 'shop/css/scrollbar.css' %}">
