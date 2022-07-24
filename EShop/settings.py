@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-4*u@#b&mv8qz6p!8w@*4lm+q^r32%+l$+%ot$8(^o=*5*@s2@m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['194.233.160.91']
+ALLOWED_HOSTS = ['192.168.0.111']
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'orders',
     'django_cleanup.apps.CleanupConfig',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -111,22 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
-        },
-    },
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -147,7 +132,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'http://192.168.0.111/media/')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),

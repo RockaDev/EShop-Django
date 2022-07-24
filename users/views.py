@@ -13,6 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 User = get_user_model()
 
 def home(request):
+    print("IP Address for debug-toolbar: " + request.META['REMOTE_ADDR'])
 
     if 'device' in request.COOKIES.keys():
         device = request.COOKIES['device']
