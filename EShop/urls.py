@@ -27,6 +27,8 @@ urlpatterns = [
     path('shop/', include('shop.urls')),
     path('shop/cart/', include('checkout.urls')),
     path('', include('orders.urls')),
+
+    re_path(r'^media/uploads/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,}),
 ]
 
 if settings.DEBUG:
