@@ -28,13 +28,6 @@ urlpatterns = [
     path('shop/cart/', include('checkout.urls')),
     path('', include('orders.urls')),
 
-    re_path(r'^media/uploads/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,}),
+    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    re_path(r'^media/products/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,}),
 ]
-
-if settings.DEBUG:
-    urlpatterns += [
-        re_path(r'^media/uploads/(?P<path>.*)$', serve, {
-            'document_root': settings.MEDIA_ROOT,
-        }),
-    ]
-
