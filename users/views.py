@@ -18,7 +18,7 @@ def home(request):
     if 'device' in request.COOKIES.keys():
         device = request.COOKIES['device']
     else:
-        return redirect('/loading/')
+        return HttpResponseRedirect('/loading/')
 
     customer,created = Customer.objects.get_or_create(device=device)
     order,created = Order.objects.get_or_create(customer=customer,complete=False)

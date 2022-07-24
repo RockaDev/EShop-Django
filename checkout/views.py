@@ -18,7 +18,7 @@ def checkout(request):
     if 'device' in request.COOKIES.keys():
         device = request.COOKIES['device']
     else:
-        return redirect('/loading/')
+        return HttpResponseRedirect('/loading/')
 
     customer = Customer.objects.get(device=device)
     order,created = Order.objects.get_or_create(customer=customer,complete=False)

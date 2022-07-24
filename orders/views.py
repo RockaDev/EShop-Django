@@ -9,15 +9,9 @@ from checkout.models import ShippingAddress
 @user_passes_test(lambda u: u.is_superuser,login_url=('/error404/'))
 def placed_order(request):
     
-    if 'device' in request.COOKIES.keys():
-        device = request.COOKIES['device']
-    else:
-        return redirect('/loading/')
-    
     _order_list = OrderItem.objects.all()
     _order_id = Order.objects.filter(complete=True)
     _orders = ShippingAddress.objects.all().order_by('id')
-    customer = Customer.objects.get(device=device)
 
     
     _data = {'shipping':_orders,'list':_order_list,'orderid':_order_id}

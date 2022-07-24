@@ -27,7 +27,7 @@ def shop(request):
     if 'device' in request.COOKIES.keys():
             device = request.COOKIES['device']
     else:
-        return redirect('/loading/')
+        return HttpResponseRedirect('/loading/')
 
     customer,created = Customer.objects.get_or_create(device=device)
     _products = ShopItems.objects.all()
@@ -77,7 +77,7 @@ def productdetail(request,pk):
     if 'device' in request.COOKIES.keys():
         device = request.COOKIES['device']
     else:
-        return redirect('/loading/')
+        return HttpResponseRedirect('/loading/')
 
     customer,created = Customer.objects.get_or_create(device=device)
     order,created = Order.objects.get_or_create(customer=customer,complete=False)
@@ -129,7 +129,7 @@ def cart(request):
     if 'device' in request.COOKIES.keys():
         device = request.COOKIES['device']
     else:
-        return redirect('/loading/')
+        return HttpResponseRedirect('/loading/')
 
     customer,created = Customer.objects.get_or_create(device=device)
     order,created = Order.objects.get_or_create(customer=customer,complete=False)
@@ -152,7 +152,7 @@ def search(request):
     if 'device' in request.COOKIES.keys():
         device = request.COOKIES['device']
     else:
-        return redirect('/loading/')
+        return HttpResponseRedirect('/loading/')
     customer,created = Customer.objects.get_or_create(device=device)
     order,created = Order.objects.get_or_create(customer=customer,complete=False)
     _products = ShopItems.objects.all()
