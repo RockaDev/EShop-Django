@@ -8,9 +8,13 @@ class Process:
         return 0 -> FAIL
         return 1 -> SUCCESS
     """
+
+    def __init__(self):
+        self._products = ShopItems.objects.all()
     
-    def add_to_cart_function(request):
-        for product in ShopItems.objects.all():
+    def add_to_cart_function(self,request):
+
+        for product in self._products:
             if request.POST.get(f"add-to-cart-{product.id}"):
                 ItemQuantity = request.POST.get('quantity')
                 if not ItemQuantity or int(ItemQuantity) < 1:
@@ -29,7 +33,7 @@ class Process:
                     return 1
 
 
-    def edit_quantity_and_remove_items_function(request):
+    def edit_quantity_and_remove_items_function(self,request):
         device = request.COOKIES['device']
         customer,created = Customer.objects.get_or_create(device=device)
 
