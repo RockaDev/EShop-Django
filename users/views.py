@@ -15,6 +15,14 @@ User = get_user_model()
 def home(request):
     print("IP Address for debug-toolbar: " + request.META['REMOTE_ADDR'])
 
+    if 'session_id' in request.COOKIES.keys():
+        device = request.COOKIES['session_id']
+    else:
+        return HttpResponseRedirect('/')
+
+    customer,created = Customer.objects.get_or_create(device=device)
+    order,created = Order.objects.get_or_create(customer=customer,complete=False)
+
     queryset = ShopItems.objects.filter(product_item="non_existent_name")
     upper_content_random = list(ShopItems.objects.all())
     count_shopitems = ShopItems.objects.count()
@@ -26,19 +34,11 @@ def home(request):
     except: 
         random_items = random.sample(upper_content_random, 0)
 
-    data = {'random_shopitem':random_items}
+    data = {'random_shopitem':random_items,'order':order}
 
     response = render(request,'base/home.html',data)
 
     response.set_cookie('session_id',uuid.uuid4())
-
-    if 'session_id' in request.COOKIES.keys():
-        device = request.COOKIES['session_id']
-    else:
-        return HttpResponseRedirect('/')
-
-    customer,created = Customer.objects.get_or_create(device=device)
-    order,created = Order.objects.get_or_create(customer=customer,complete=False)
 
     return response
 
