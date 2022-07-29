@@ -15,7 +15,7 @@ User = get_user_model()
 def home(request):
     print("IP Address for debug-toolbar: " + request.META['REMOTE_ADDR'])
     response = HttpResponse("Something..")
-    response.set_cookie(key="device",value=uuid.uuid4())
+    response.set_cookie(key="testicek",value=uuid.uuid4())
 
     if 'device' in request.COOKIES.keys():
         device = request.COOKIES['device']
