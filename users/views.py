@@ -4,7 +4,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import get_user_model,authenticate
 from django.contrib import auth
 from shop.models import Customer,Order,ShopItems
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 import random,uuid
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -14,14 +14,14 @@ User = get_user_model()
 
 def home(request):
     print("IP Address for debug-toolbar: " + request.META['REMOTE_ADDR'])
+    response = HttpResponse("Something..")
+    response.set_cookie(key="device",value=uuid.uuid4())
 
     if 'device' in request.COOKIES.keys():
         device = request.COOKIES['device']
     else:
-        return HttpResponseRedirect('/loading/')
+        print("NONE")
 
-    customer,created = Customer.objects.get_or_create(device=device)
-    order,created = Order.objects.get_or_create(customer=customer,complete=False)
 
     queryset = ShopItems.objects.filter(product_item="non_existent_name")
     upper_content_random = list(ShopItems.objects.all())
@@ -34,7 +34,7 @@ def home(request):
     except: 
         random_items = random.sample(upper_content_random, 0)
 
-    data = {'random_shopitem':random_items,'order':order}
+    data = {'random_shopitem':random_items}
     return render(request,'base/home.html',data)
 
 def adminlogin(request):
