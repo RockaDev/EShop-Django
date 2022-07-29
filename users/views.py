@@ -62,6 +62,12 @@ def logout(request):
 
 def loading_data(request):
     _data = {}
+
+    if 'device' in request.COOKIES.keys():
+        return HttpResponseRedirect('/')
+    else:
+        pass
+
     response = render(request,'base/loading.html',_data)
     response.set_cookie('device',uuid.uuid4())
 
