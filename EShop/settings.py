@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'checkout',
     'orders',
     'django_cleanup.apps.CleanupConfig',
+    'storages',
 ]
 
 
@@ -154,3 +155,11 @@ SESSION_COOKIE_SECURE=False
 CSRF_COOKIE_SECURE=False
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+AWS_ACCESS_KEY_ID = 'AKIAVM44LB55LXU2JB4N'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'liquid-eshop-bucket1'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
