@@ -9,12 +9,16 @@
     <h2>Váš košík je prázdny.</h2>
 
 {% else %}
+<div class="checkout-container" ALIGN="center">
     <form method="post">
         {% csrf_token %}
-        <p>{{form}}</p>
+        <div class="form-wrapper" style="margin: 20px;display: block;width: 200px;">
+            <p>{{form}}</p>
+        </div>
         <input type="submit" name="payment" class="btn btn-warning" value="Zaplatiť">
         {{ form.errors }}
     </form>
+</div>
 {% endif %}
 
 {% endblock content %}
