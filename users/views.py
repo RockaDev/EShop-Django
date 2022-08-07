@@ -66,13 +66,12 @@ def loading_data(request):
     response = render(request,'base/loading.html',_data)
     response.set_cookie('device',uuid.uuid4())
 
-    try:
-        if 'device' in request.COOKIES.keys():
-            return HttpResponseRedirect('/')
 
-        else: return HttpResponseRedirect('/loading/')
+    if 'device' in request.COOKIES.keys():
+        return HttpResponseRedirect('/')
 
-    except: return HttpResponseRedirect('/loading/')
+    else: return HttpResponseRedirect('/loading/')
+
 
 
     return response
