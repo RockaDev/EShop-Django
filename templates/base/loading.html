@@ -28,10 +28,8 @@
 
     while(true){
         if(document.cookie.indexOf('device=') == 0) {
+            window.location.href = '/';
             break;
-            setTimeout(function(){
-                window.location.href = '/';
-            }, 0);
         }
     }
 
