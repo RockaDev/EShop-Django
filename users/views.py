@@ -7,6 +7,7 @@ from shop.models import Customer,Order,ShopItems
 from django.http import HttpResponseRedirect
 import random,uuid
 from django.core.exceptions import ObjectDoesNotExist
+from users.decorators import retry_on_exception
 
 # Create your views here.
 
@@ -59,7 +60,7 @@ def logout(request):
     return HttpResponseRedirect('/')
 
 
-
+@retry_on_exception
 def loading_data(request):
     _data = {}
 
