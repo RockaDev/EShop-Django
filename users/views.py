@@ -70,6 +70,8 @@ def loading_data(request):
         if 'device' in request.COOKIES.keys():
             return HttpResponseRedirect('/')
 
+        else: return HttpResponseRedirect('/loading/')
+
     except: return HttpResponseRedirect('/loading/')
 
 
