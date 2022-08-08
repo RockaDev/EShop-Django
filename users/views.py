@@ -18,8 +18,7 @@ def home(request):
 
     if 'device' in request.COOKIES.keys():
         device = request.COOKIES['device']
-    else:
-        return HttpResponseRedirect('/')
+    else: pass
 
     customer,created = Customer.objects.get_or_create(device=device)
     order,created = Order.objects.get_or_create(customer=customer,complete=False)
@@ -37,7 +36,9 @@ def home(request):
 
     data = {'random_shopitem':random_items,'order':order}
     response = render(request,'base/home.html',data)
-    response.set_cookie('device',uuid.uuid4())
+    COOKIE_SET = response.set_cookie('device',uuid.uuid4())
+
+    if COOKIE_SET: return HttpResponseRedirect('/')
 
     return response
 
