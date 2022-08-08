@@ -18,6 +18,7 @@ def home(request):
 
     if 'device' in request.COOKIES.keys():
         device = request.COOKIES['device']
+        
     else: pass
 
     customer,created = Customer.objects.get_or_create(device=device)
