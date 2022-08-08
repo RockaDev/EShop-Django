@@ -1,5 +1,6 @@
 {% extends 'base/home.html' %}
 {% load static %}
+{% block title %}Košík{% endblock title %}
 {% block badge %}badge{% endblock badge %}
 {% block cart_detail %}{{order.get_cart_items}}{% endblock cart_detail %}
 {% block upper_content %}{% endblock upper_content %}
