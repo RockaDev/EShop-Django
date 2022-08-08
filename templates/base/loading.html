@@ -10,6 +10,9 @@
 <body>
 
     <h4 ALIGN="center" style="color: white;">Načítavanie, prosíme trochu strpenia.</h4>
+
+    <p style="color:white;">Pokiaľ vás to automaticky nepresmerovalo, kliknite na tlačítko nižšie.</p>
+    <input type="button" value="Pokračovať" onclick="checkForCookie();">
     <div class="ld"></div>
     <style>
         body {
@@ -26,13 +29,12 @@
 
 <script>
 
-    while(true){
+    function checkForCookie() {
         if(document.cookie.indexOf('device=') == 0) {
             window.location.href = '/';
-            break;
-        }
-    }
-
+        } else {console.log("COOKIE NOT FOUND")}
+    } checkForCookie();
+    
 </script>
 
 </body>

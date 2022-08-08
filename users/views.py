@@ -14,12 +14,11 @@ from users.decorators import retry_on_exception
 User = get_user_model()
 
 def home(request):
-    print("IP Address for debug-toolbar: " + request.META['REMOTE_ADDR'])
 
     if 'device' in request.COOKIES.keys():
         device = request.COOKIES['device']
-        
-    else: pass
+    else:
+        return HttpResponseRedirect('/loading/')
 
     customer,created = Customer.objects.get_or_create(device=device)
     order,created = Order.objects.get_or_create(customer=customer,complete=False)
@@ -36,12 +35,7 @@ def home(request):
         random_items = random.sample(upper_content_random, 0)
 
     data = {'random_shopitem':random_items,'order':order}
-    response = render(request,'base/home.html',data)
-    COOKIE_SET = response.set_cookie('device',uuid.uuid4())
-
-    if COOKIE_SET: return HttpResponseRedirect('/')
-
-    return response
+    return render(request,'base/home.html',data)
 
 def adminlogin(request):
     if request.method == 'POST':
