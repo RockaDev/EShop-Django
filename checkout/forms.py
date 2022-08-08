@@ -13,6 +13,7 @@ class CheckoutForm(forms.ModelForm):
     order_id = forms.CharField(widget = forms.HiddenInput(), required = False)
     product = forms.CharField(widget = forms.HiddenInput(), required = False)
     transaction_id = forms.CharField(widget = forms.HiddenInput(), required = False)
+    mark_as_completed = forms.BooleanField(required = False)
 
     class Meta:
         model = ShippingAddress
@@ -28,6 +29,7 @@ class CheckoutForm(forms.ModelForm):
         self.fields['tel_number'].widget.attrs['placeholder'] = 'Telefónne číslo'
         self.fields['dic'].widget.attrs['placeholder'] = 'DIČ | nepovinné'
         self.fields['email'].widget.attrs['placeholder'] = 'Email Adresa'
+        self.fields['mark_as_completed'].widget = forms.HiddenInput()
 
         
 

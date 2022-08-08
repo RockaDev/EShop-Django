@@ -71,6 +71,4 @@ def loading_data(request):
 
     else: pass
 
-
-
     return response
