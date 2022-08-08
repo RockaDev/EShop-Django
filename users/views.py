@@ -19,7 +19,7 @@ def home(request):
     if 'device' in request.COOKIES.keys():
         device = request.COOKIES['device']
     else:
-        return HttpResponseRedirect('/loading/')
+        return HttpResponseRedirect('/')
 
     customer,created = Customer.objects.get_or_create(device=device)
     order,created = Order.objects.get_or_create(customer=customer,complete=False)
@@ -36,7 +36,10 @@ def home(request):
         random_items = random.sample(upper_content_random, 0)
 
     data = {'random_shopitem':random_items,'order':order}
-    return render(request,'base/home.html',data)
+    response = render(request,'base/home.html',data)
+    response.set_cookie('device',uuid.uuid4())
+
+    return response
 
 def adminlogin(request):
     if request.method == 'POST':
