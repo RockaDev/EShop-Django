@@ -88,11 +88,11 @@ AUTH_USER_MODEL = 'users.ThisUser'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'der6a0dudfon0o',
-        'USER': 'vspbblotxlpjsd',
-        'PASSWORD': '7d19c17de9d3a953e9229a70b1eabcd1cea98e1c2f9dcf27e59773554b5ce685',
-        'HOST': 'ec2-34-247-72-29.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+        'NAME': 'DB_NAME',
+        'USER': 'USER',
+        'PASSWORD': 'PASSWORD',
+        'HOST': 'DB_HOST',
+        'PORT': 'DB_PORT',
     }
 }
 # Password validation
@@ -156,9 +156,9 @@ CSRF_COOKIE_SECURE=False
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-AWS_ACCESS_KEY_ID = 'AKIAVM44LB55LXU2JB4N'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'liquid-eshop-bucket1'
+AWS_ACCESS_KEY_ID = 'ACCESS_KEY_ID'
+AWS_SECRET_ACCESS_KEY = 'INSERT-KEY'
+AWS_STORAGE_BUCKET_NAME = 'BUCKET_NAME'
 
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
